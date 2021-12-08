@@ -23,11 +23,11 @@ function gjmj4wp_ajax_subscribe(): void {
 	 * Mailjet
 	 */
 	$mailjet = new \Mailjet\Client(
-		get_option( GJMJ4WP_MAILJET_API_KEY ),
-		get_option( GJMJ4WP_MAILJET_API_SECRET ),
+		GJMJ4WP_API_KEY,
+		GJMJ4WP_API_SECRET,
 		true,
 		array(
-			'version' => get_option( GJMJ4WP_MAILJET_API_VERSION ),
+			'version' => GJMJ4WP_SEND_API_VERSION,
 		)
 	);
 
@@ -46,11 +46,11 @@ function gjmj4wp_ajax_subscribe(): void {
 	$confirmation_link       = get_site_url() . '/?gjmp4wp-email=' . $email . '&gjmp4wp-checksum=' . $checksum . '&gjmp4wp-nonce=' . $nonce;
 	$email_confirmation_body = array();
 
-	switch ( get_option( GJMJ4WP_MAILJET_API_VERSION_SEND ) ) {
+	switch ( GJMJ4WP_SEND_API_VERSION ) {
 		case 'v3':
 			$email_confirmation_body = array(
-				'FromEmail'           => get_option( GJMJ4WP_MAILJET_TEMPLATE_EMAIL_FROM ),
-				'FromName'            => get_option( GJMJ4WP_MAILJET_TEMPLATE_EMAIL_NAME ),
+				'FromEmail'           => GJMJ4WP_TEMPLATE_FROM_EMAIL,
+				'FromName'            => GJMJ4WP_TEMPLATE_FROM_NAME,
 				'Subject'             => 'Confirm your email',
 				'Recipients'          => array(
 					array(
@@ -71,8 +71,8 @@ function gjmj4wp_ajax_subscribe(): void {
 				'Messages' => array(
 					array(
 						'From'             => array(
-							'Email' => get_option( GJMJ4WP_MAILJET_TEMPLATE_EMAIL_FROM ),
-							'Name'  => get_option( GJMJ4WP_MAILJET_TEMPLATE_EMAIL_NAME ),
+							'Email' => GJMJ4WP_TEMPLATE_FROM_EMAIL,
+							'Name'  => GJMJ4WP_TEMPLATE_FROM_NAME,
 						),
 						'To'               => array(
 							array(
